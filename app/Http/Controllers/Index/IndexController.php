@@ -36,7 +36,10 @@ class IndexController extends Controller
             die;
         }else{
             if($data->user_pwd==$pwd){
+                session(['name'=>$name]);
+                //dd(session('name'));
                 echo '登录成功,正在为您跳转。。。';
+               // session(['name'=>$name]);
                 header("refresh:2,url='/'");
                 die;
             }else{

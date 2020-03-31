@@ -41,10 +41,11 @@ class BooksController extends Controller
 
     //月票投票
     public function yue(){
+
         $yue=$_GET['books_yue'];
         $res=Books::where('books_id','=',$yue)->increment('books_yue');
         if($res){
-            echo '投票成功，正在为您跳转书籍详情页面';
+            echo '投票成功，正在为您跳转首页';
             header("refresh:2,url='/'");
         }
     }
@@ -52,6 +53,7 @@ class BooksController extends Controller
     //沙箱支付宝
     public function alipay()
     {
+
         //沙箱支付宝网关
         $url='https://openapi.alipaydev.com/gateway.do';
 
@@ -70,7 +72,11 @@ class BooksController extends Controller
         //请求参数
         $out_trade_no = time() . rand(1111,9999);       //商户订单号
         $product_code = 'FAST_INSTANT_TRADE_PAY';
-        $total_amount = $_GET['amount'];
+        $total_amount = $_GET['amount']??"";
+        if($total_amount==''){
+            echo '请您至少选择一个商品';
+            die;
+        }
         $subject = '月票订单' . $out_trade_no;
 
         $request_param = [
