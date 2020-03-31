@@ -49,6 +49,7 @@ class BooksController extends Controller
         }
     }
 
+    //沙箱支付宝
     public function alipay()
     {
         //沙箱支付宝网关
@@ -62,15 +63,15 @@ class BooksController extends Controller
         $sign = '';
         $timestamp = date('Y-m-d H:i:s');
         $version = '1.0';
-        $return_url = 'http://api.bianaoao.top/alipay/return';       // 支付宝同步通知
-        $notify_url = 'http://api.bianaoao.top/alipay/notify';     // 支付宝异步通知地址
+        $return_url = 'http://read.bianaoao.top/books/return';       // 支付宝同步通知
+        $notify_url = 'http://read.bianaoao.top/books/notify';     // 支付宝异步通知地址
         $biz_content = '';
 
         //请求参数
         $out_trade_no = time() . rand(1111,9999);       //商户订单号
         $product_code = 'FAST_INSTANT_TRADE_PAY';
-        $total_amount = 514704.22;
-        $subject = '测试订单' . $out_trade_no;
+        $total_amount = $_GET['amount'];
+        $subject = '月票订单' . $out_trade_no;
 
         $request_param = [
             'out_trade_no'  => $out_trade_no,
